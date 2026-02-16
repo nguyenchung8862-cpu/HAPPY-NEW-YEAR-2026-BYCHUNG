@@ -235,7 +235,7 @@
 			/* Ẩn nút pause và nút cài đặt */
 			.pause-btn,
 			.settings-btn {
-				display: none !important;\
+				display: none !important;
 			}
 		/* ===== FIX FULL MOBILE SCREEN ===== */
 
@@ -266,8 +266,7 @@
 		padding-bottom: env(safe-area-inset-bottom);
 		padding-top: env(safe-area-inset-top);
 		}
-		/* ===== CHỮ NỀN NĂM MỚI ===== */
-
+	
 		/* ===== CHỮ NỀN NĂM MỚI ===== */
 
 		.newyear-bg-text {
@@ -325,7 +324,6 @@
 
 		body {
     		overflow-x: hidden;
-    		position: fixed;
     		width: 100%;
 		}
 			.designer-credit {
@@ -351,8 +349,8 @@
     		z-index: 9999;
     		text-align: center;
     		font-family: 'Dancing Script', cursive;
-    		font-size: clamp(12px, 4vw, 16px);
-    		font-weight: 500;
+    		font-size: clamp(16px, 4vw, 22px);
+    		font-weight: 600;
     		letter-spacing: 1px;
     		color: #ffd700;
 
@@ -362,7 +360,7 @@
 		/* Tên designer nhỏ hơn */
 		.designer-name {
     		display: block;
-    		font-size: 16px;
+    		font-size: 14px;
     		margin-top: 4px;
     		color: #ffffffcc;
 		}
@@ -392,6 +390,95 @@
        		transform: translate(-50%, -6px);
     		}
 		}
+			/* ===== COUNTDOWN 2026 ===== */
+		.countdown {
+    		position: absolute;
+    		top: 60%;
+    		left: 50%;
+    		transform: translate(-50%, -50%);
+    		z-index: 5;
+
+    		font-family: 'Dancing Script', cursive;
+    		font-size: clamp(1.8rem, 6vw, 3.5rem);
+    		font-weight: 700;
+    		letter-spacing: 2px;
+    		text-align: center;
+
+    		color: #ffd700;
+    		text-shadow:
+        	0 0 10px #ffd700,
+       		0 0 20px #ff8c00,
+        	0 0 40px #ff4500;
+
+    		animation: glowCountdown 2s infinite alternate;
+		}
+
+		@keyframes glowCountdown {
+    		from {
+        	text-shadow:
+            	0 0 10px #ffd700,
+            	0 0 20px #ff8c00;
+    		}
+    		to {
+        	text-shadow:
+            	0 0 20px #fff,
+            	0 0 40px #ff69b4,
+            	0 0 60px #ff1493;
+    		}
+		}
+		.countdown.big {
+    		font-size: clamp(3rem, 12vw, 8rem);
+    		animation: pulse 0.8s infinite;
+		}
+
+		@keyframes pulse {
+    		0% { transform: translate(-50%, -50%) scale(1); }
+    		50% { transform: translate(-50%, -50%) scale(1.2); }
+    		100% { transform: translate(-50%, -50%) scale(1); }
+		}
+
+		.screen-flash {
+    		position: fixed;
+    		inset: 0;
+    		background: white;
+    		opacity: 0;
+    		pointer-events: none;
+    		z-index: 9999;
+		}
+	/* Hiệu ứng nổ số */
+		.countdown.explode {
+    		font-size: clamp(4rem, 14vw, 9rem);
+    		animation: explodeAnim 0.6s ease-out forwards;
+	}
+
+		@keyframes explodeAnim {
+    		0% {
+        	transform: translate(-50%, -50%) scale(1);
+        	opacity: 1;
+    	}
+    		50% {
+        	transform: translate(-50%, -50%) scale(2.5);
+        	opacity: 1;
+    	}
+    		100% {
+        	transform: translate(-50%, -50%) scale(0);
+        	opacity: 0;
+    	}
+	}
+	/* Khi vừa giao thừa */
+		.countdown.celebrate {
+    		font-size: clamp(3rem, 10vw, 6rem);
+    		animation: pulse 1s infinite;
+	}
+
+	/* Sau khi ăn mừng xong → lùi ra sau */
+		.countdown.background-mode {
+    		font-size: clamp(1.5rem, 4vw, 2.5rem);
+    		opacity: 0.3;
+    		top: 30%;
+    		z-index: 1;
+    		transition: all 1.5s ease;
+	}
 	</style>
 		<meta name="msapplication-TileColor" content="#000000" />
 		<meta name="msapplication-TileImage" content="./images/favicon.png" />
@@ -433,7 +520,7 @@
 		<div class="container">
 			<div class="stage-container remove">
 				<!-- Layer lời chúc bay trên trời -->
-				<div class="newyear-bg-text">Chúc mừng năm mới 2026</div>
+				<div class="countdown" id="countdown"></div>
 				<div class="wishes-layer" id="wishes-layer"></div>
 				<div class="canvas-container">
 					<canvas id="trails-canvas"> </canvas>
@@ -543,10 +630,78 @@
 		<script src="./js/MyMath.js"></script>
 		<script src="./js/script.js"></script>
 		<script src="./js/music.js"></script>
-		<audio id="bg-music" src="./music/background.mp3" loop></audio>	
+		<audio id="bg-music" src="./music/background.mp3" loop></audio>
+		<script>
+		document.body.addEventListener("click", function () {
+    		const music = document.getElementById("bg-music");
+    		if (music && music.paused) {
+        	music.play().catch(() => {});
+    		}
+		}, { once: true });
+	</script>
+	
 		<div class="designer-credit">
-    	Nhấn vào màn hình 🎇 <br>
-    	<span class="designer-name">Designer by Thành Chung</span>
-	</div>
+    		Chạm vào màn hình 🎇 <br>
+    		<span class="designer-name">Designer by Thành Chung</span>
+		</div>
+	<script>
+		const countdownEl = document.getElementById("countdown");
+
+	// 00:00 ngày 17/02/2026 (mùng 1 Tết)
+		const lunarNewYear = new Date(2026, 1, 17, 0, 0, 0).getTime();
+
+		function updateCountdown() {
+    		const now = new Date().getTime();
+    		const distance = lunarNewYear - now;
+
+    	// ===== KHI TỚI GIAO THỪA =====
+    		if (distance <= 0) {
+        	clearInterval(timer);
+
+        	countdownEl.innerHTML = "🧧 CHÚC MỪNG NĂM MỚI 2026 🧧";
+        	countdownEl.classList.remove("big");
+        	countdownEl.classList.add("celebrate");
+
+        	const autoLaunch = document.querySelector(".auto-launch");
+        	const finale = document.querySelector(".finale-mode");
+
+        	if (autoLaunch) {
+            	autoLaunch.checked = true;
+            	autoLaunch.dispatchEvent(new Event("change"));
+        }
+
+        	if (finale) {
+            	finale.checked = true;
+            	finale.dispatchEvent(new Event("change"));
+        }
+
+        // Sau 4 giây → thu nhỏ ra phía sau
+        		setTimeout(() => {
+            		countdownEl.classList.remove("celebrate");
+            		countdownEl.classList.add("background-mode");
+        	}, 4000);
+
+        		return;
+    		}
+
+    		// ===== ĐANG ĐẾM NGƯỢC =====
+    			const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    			const minutes = Math.floor((distance / 1000 / 60) % 60);
+    			const seconds = Math.floor((distance / 1000) % 60);
+
+    			if (hours === 0 && minutes === 0 && seconds <= 10) {
+        		countdownEl.classList.add("big");
+        		countdownEl.innerHTML = seconds;
+    		} else {
+        		countdownEl.classList.remove("big");
+        		countdownEl.innerHTML =
+            		`Đếm ngược 2025<br>${hours} giờ : ${minutes} phút : ${seconds} giây`;
+    		}
+		}
+
+		// Chạy countdown
+			const timer = setInterval(updateCountdown, 1000);
+			updateCountdown();
+		</script>
 	</body>
 </html>
