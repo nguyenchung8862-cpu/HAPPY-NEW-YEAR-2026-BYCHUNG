@@ -390,7 +390,7 @@
        		transform: translate(-50%, -6px);
     		}
 		}
-			/* ===== COUNTDOWN 2026 ===== */
+			/* ===== COUNTDOWN NHỎ GỌN ===== */
 		.countdown {
     		position: absolute;
     		top: 60%;
@@ -399,18 +399,17 @@
     		z-index: 5;
 
     		font-family: 'Dancing Script', cursive;
-    		font-size: clamp(0.8rem, 3vw, 1.8rem);
-    		font-weight: 500;
-    		letter-spacing: 2px;
+
+    		font-size: clamp(0.8rem, 2.2vw, 1.4rem); /* NHỎ LẠI RÕ RỆT */
+    		font-weight: 400;
+    		letter-spacing: 1px;
     		text-align: center;
 
     		color: #ffd700;
-    		text-shadow:
-        	0 0 10px #ffd700,
-       		0 0 20px #ff8c00,
-        	0 0 40px #ff4500;
 
-    		animation: glowCountdown 2s infinite alternate;
+    		text-shadow:
+        	0 0 6px rgba(255,215,0,0.6),
+        	0 0 12px rgba(255,140,0,0.5);
 		}
 
 		@keyframes glowCountdown {
@@ -427,7 +426,7 @@
     		}
 		}
 		.countdown.big {
-    		font-size: clamp(2.5rem, 8vw, 6rem);
+    		font-size: clamp(3rem, 12vw, 8rem);
     		animation: pulse 0.8s infinite;
 		}
 
