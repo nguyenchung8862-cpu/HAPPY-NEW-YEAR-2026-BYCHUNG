@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>CHÚC MỪNG TẾT NGUYÊN ĐÁN - 2026</title>
+		<title>CHÚC TẾT 2026 - BY CHUNG</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover" />
 		<meta name="mobile-web-app-capable" content="yes" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
@@ -341,7 +341,57 @@
     			text-shadow: 0 0 8px rgba(255,255,255,0.8);
     			pointer-events: none;
 		}
+		/* ===== HƯỚNG DẪN LUNG LINH TẾT 2026 ===== */
 
+		.designer-credit {
+    		position: fixed;
+    		bottom: 20px;
+    		left: 50%;
+    		transform: translateX(-50%);
+    		z-index: 9999;
+    		text-align: center;
+    		font-family: 'Dancing Script', cursive;
+    		font-size: clamp(16px, 4vw, 22px);
+    		font-weight: 600;
+    		letter-spacing: 1px;
+    		color: #ffd700;
+
+    		animation: glowText 2s infinite alternate, floatText 3s ease-in-out infinite;
+		}
+
+		/* Tên designer nhỏ hơn */
+		.designer-name {
+    		display: block;
+    		font-size: 14px;
+    		margin-top: 4px;
+    		color: #ffffffcc;
+		}
+
+		/* Phát sáng */
+		@keyframes glowText {
+    		0% {
+        	text-shadow:
+            	0 0 10px #ffd700,
+            	0 0 20px #ff8c00,
+            	0 0 40px #ff4500;
+    		}
+    		100% {
+        	text-shadow:
+            	0 0 20px #fff,
+            	0 0 40px #ff69b4,
+            	0 0 60px #ff1493;
+    		}
+		}
+
+		/* Nhẹ nhàng trôi lên xuống */
+		@keyframes floatText {
+    		0%, 100% {
+        	transform: translate(-50%, 0px);
+    		}
+    		50% {
+       		transform: translate(-50%, -6px);
+    		}
+		}
 	</style>
 		<meta name="msapplication-TileColor" content="#000000" />
 		<meta name="msapplication-TileImage" content="./images/favicon.png" />
@@ -495,7 +545,8 @@
 		<script src="./js/music.js"></script>
 		<audio id="bg-music" src="./music/background.mp3" loop></audio>	
 		<div class="designer-credit">
-    		Designer by Thành Chung
-		</div>
+    	🎆 Chạm vào màn hình để bắn pháo hoa 🎇 <br>
+    	<span class="designer-name">Designer by Thành Chung</span>
+	</div>
 	</body>
 </html>
